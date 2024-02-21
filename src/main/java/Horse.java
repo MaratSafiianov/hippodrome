@@ -1,5 +1,7 @@
-import static java.util.Objects.isNull;
+import lombok.extern.log4j.Log4j2;
 
+import static java.util.Objects.isNull;
+@Log4j2
 public class Horse {
 
     private final String name;
@@ -8,24 +10,30 @@ public class Horse {
 
     public Horse(String name, double speed, double distance) {
         if (isNull(name)) {
+            log.error("Name is null");
             throw new IllegalArgumentException("Name cannot be null.");
         } else if (name.isBlank()) {
+            log.error("Name is blank");
             throw new IllegalArgumentException("Name cannot be blank.");
         }
         if (speed < 0) {
+            log.error("Speed is negative");
             throw new IllegalArgumentException("Speed cannot be negative.");
         }
         if (distance < 0) {
+            log.error("Distance is negative");
             throw new IllegalArgumentException("Distance cannot be negative.");
         }
 
         this.name = name;
         this.speed = speed;
         this.distance = distance;
+        log.debug("Создание Horse, имя [{}], скорость [{}]", name, speed);
     }
 
     public Horse(String name, double speed) {
         this(name, speed, 0);
+        log.debug("Создание Horse, имя [{}], скорость [{}]", name, speed);
     }
 
     public String getName() {
@@ -48,3 +56,4 @@ public class Horse {
         return (Math.random() * (max - min)) + min;
     }
 }
+
